@@ -27,27 +27,26 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
     # Send Analytics Report
     Puppet.lookup(:bolt_executor) {}&.report_function_call(self.class.name)
 
-    if !environment.nil?
-      environment_string = '--environment #{environment}'
-    else
-      environment_string = ''
-    end
+    environment_string = if !environment.nil?
+                           '--environment #{environment}'
+                         else
+                           ''
+                         end
 
-    if !section.nil?
-      section_string = '--section #{section}'
-    else
-      section_string = ''
-    end  
+    section_string = if !section.nil?
+                       '--section #{section}'
+                     else
+                       ''
+                     end
 
     command_string = "puppet config print #{config} #{environment_string} #{section_string}"
 
     result = command(command_string)
 
     if result[:exit_code] != 0
-      raise Bolt:Error.new("Could not print config: #{result[:stderr]}")
+      raise Bolt: Error.new("Could not print config: #{result[:stderr]}")
     end
 
     result[:stdout].chomp
   end
-
 end

@@ -7,7 +7,7 @@
 # @summary Test the printconfig function
 # @param targets The targets to run on.
 plan boltfunctions::printconfig (
-  TargetSpec $targets = "localhost",
+  TargetSpec $targets = 'localhost',
   String $config = 'server',
 ) {
   $command_result = boltfunctions::configprint($server)
