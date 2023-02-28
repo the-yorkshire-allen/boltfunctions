@@ -30,32 +30,30 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
     Puppet.lookup(:bolt_executor) {}&.report_function_call(self.class.name)
 
     # Remove leading '--' if present to prevent options being called as config
-    config.delete! '--'
-
     environment_string =
       if !environment.nil?
-        environment.delete! '--'
-        '--environment #{environment}'
+        #c_environment = environment.delete '--'
+        "--environment #{environment.gsub!(/[^A-Za-z]/, '')}"
       else
         ''
       end
 
     section_string =
       if !section.nil?
-        section.delete! '--'
-        '--section #{section}'
+        #c_section = section.delete '--'
+        "--section #{section.gsub!(/[^A-Za-z]/, '')}"
       else
         ''
       end
 
-    command_string = "puppet config print #{config} #{environment_string} #{section_string}"
+    command_string = "puppet config print #{config.gsub!(/[^A-Za-z]/, '')} #{environment_string} #{section_string}".rstrip
 
     result = command(command_string)
 
     if result[:exit_code] != 0
-      raise Bolt: Error.new("Could not print config: #{result[:stderr]}")
+      raise Bolt::Error.new("Could not print config: #{result[:stderr]}")
     end
 
-    result[:stdout].chomp
+    result[:stdout].strip
   end
 end

@@ -1,6 +1,4 @@
-2023-02-27T11:27:52.146686 INFO   [main] [Bolt::Logger] Loaded project from '/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions'
-2023-02-27T11:27:52.147133 DEBUG  [main] [Bolt::Executor] Started with 36 max thread(s)
-2023-02-27T11:27:52.147513 DEBUG  [main] [Bolt::PAL] Loading modules from /opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.26.2/bolt-modules:/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/modules:/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/.modules:/opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.26.2/modules
-2023-02-27T11:27:52.148155 DEBUG  [main] [Bolt::Inventory] Loaded inventory from /Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/inventory.yaml
-2023-02-27T11:27:52.547635 INFO   [event-publisher] [Bolt::Outputter::Logger] Starting: plan boltfunctions::printconfig
-2023-02-27T11:27:54.778312 INFO   [event-publisher] [Bolt::Outputter::Logger] Finished: plan boltfunctions::printconfig in 2.23 sec
+2023-02-28T12:38:35.397894 INFO   [main] [Bolt::Logger] Loaded project from '/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions'
+2023-02-28T12:38:35.398396 DEBUG  [main] [Bolt::Executor] Started with 100 max thread(s)
+2023-02-28T12:38:35.398771 DEBUG  [main] [Bolt::PAL] Loading modules from /opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.26.2/bolt-modules:/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/modulepathaxa:/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/.modules:/opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.26.2/modules
+2023-02-28T12:38:35.399798 DEBUG  [main] [Bolt::Inventory] Loaded inventory from /Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/inventory.yaml

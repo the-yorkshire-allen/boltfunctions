@@ -9,7 +9,10 @@
 plan boltfunctions::printconfig (
   TargetSpec $targets = 'localhost',
   String $config = 'server',
+  String $environment = 'production',
+  String $section = 'main',
 ) {
+  #$command_result = boltfunctions::configprint($config,$environment,'main')
   $command_result = boltfunctions::configprint($config)
 
   return $command_result
