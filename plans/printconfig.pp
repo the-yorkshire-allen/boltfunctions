@@ -10,7 +10,7 @@ plan boltfunctions::printconfig (
   TargetSpec $targets = 'localhost',
   String $config = 'server',
 ) {
-  $command_result = boltfunctions::configprint($server)
+  $command_result = boltfunctions::configprint($config)
 
   return $command_result
 }

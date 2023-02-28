@@ -18,26 +18,35 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
 
   def command(command, arguments = [])
     stdout, stderr, p = Open3.capture3(command, *arguments)
-    { stdout: stdout,
-        stderr: stderr,
-        exit_code: p.exitstatus }
+    {
+      stdout: stdout,
+      stderr: stderr,
+      exit_code: p.exitstatus
+    }
   end
 
   def configprint(config, environment = nil, section = nil)
     # Send Analytics Report
     Puppet.lookup(:bolt_executor) {}&.report_function_call(self.class.name)
 
-    environment_string = if !environment.nil?
-                           '--environment #{environment}'
-                         else
-                           ''
-                         end
+    # Remove leading '--' if present to prevent options being called as config
+    config.delete! '--'
 
-    section_string = if !section.nil?
-                       '--section #{section}'
-                     else
-                       ''
-                     end
+    environment_string =
+      if !environment.nil?
+        environment.delete! '--'
+        '--environment #{environment}'
+      else
+        ''
+      end
+
+    section_string =
+      if !section.nil?
+        section.delete! '--'
+        '--section #{section}'
+      else
+        ''
+      end
 
     command_string = "puppet config print #{config} #{environment_string} #{section_string}"
 
