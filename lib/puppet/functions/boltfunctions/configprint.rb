@@ -32,7 +32,8 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
     Puppet.lookup(:bolt_executor) {}&.report_function_call(self.class.name)
 
     # Remove any characters from the parameters other than uppercase and lowercase letters
-    config_string = config.dup.gsub!(/[^A-Za-z]/, '')
+    config_string = config.dup
+    config_string.gsub!(/[^A-Za-z]/, '')
 
     environment_string =
       if !environment.nil?
