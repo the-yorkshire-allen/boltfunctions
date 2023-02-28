@@ -8,12 +8,15 @@
 # @param targets The targets to run on.
 plan boltfunctions::printconfig (
   TargetSpec $targets = 'localhost',
-  String $config = 'server',
-  String $environment = 'production',
-  String $section = 'main',
+  String[1] $config = 'server',
+  Optional[String[1]] $environment = 'production',
+  Optional[String[1]] $section = undef,
 ) {
-  #$command_result = boltfunctions::configprint($config,$environment,'main')
-  $command_result = boltfunctions::configprint($config)
+  if $section {
+    $command_result = boltfunctions::configprint($config,$environment,$section)
+  } else {
+    $command_result = boltfunctions::configprint($config,$environment)
+  }
 
   return $command_result
 }
