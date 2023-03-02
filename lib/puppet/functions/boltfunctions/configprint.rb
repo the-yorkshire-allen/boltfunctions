@@ -27,31 +27,34 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
     }
   end
 
+  def validateparameter(parameter, option = nil)
+    if !parameter.nil?
+      prefix =
+        if !option.nil?
+          "--#{option} " 
+        else
+          ''
+        end
+
+      parameter_string = parameter.dup
+      parameter_string.gsub!(/[^A-Za-z]/, '')
+
+      # return concatenated string
+      prefix + parameter_string
+    else
+      # return empty string
+      ''
+    end
+  end
+
   def configprint(config, environment = nil, section = nil)
     # Send Analytics Report
     Puppet.lookup(:bolt_executor) {}&.report_function_call(self.class.name)
 
     # Remove any characters from the parameters other than uppercase and lowercase letters
-    config_string = config.dup
-    config_string.gsub!(/[^A-Za-z]/, '')
-
-    environment_string =
-      if !environment.nil?
-        c_environment = environment.dup
-        c_environment.gsub!(/[^A-Za-z]/, '')
-        "--environment #{c_environment}"
-      else
-        ''
-      end
-
-    section_string =
-      if !section.nil?
-        c_section = section.dup
-        c_section.gsub!(/[^A-Za-z]/, '')
-        "--section #{c_section}"        
-      else
-        ''
-      end
+    config_string = validateparameter(config)
+    environment_string = validateparameter(environment, 'environment')
+    section_string = validateparameter(section, 'section')
 
     command_string = "puppet config print #{config_string} #{environment_string} #{section_string}".rstrip
 
@@ -61,6 +64,7 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
       raise Bolt::Error.new("Could not print config: #{result[:stderr]}")
     end
 
+    # return the stdout from the command
     result[:stdout].strip
   end
 end
