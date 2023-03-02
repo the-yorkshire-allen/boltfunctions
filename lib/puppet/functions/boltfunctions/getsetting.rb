@@ -17,6 +17,15 @@ Puppet::Functions.create_function(:'boltfunctions::getsetting') do
     # Send Analytics Report
     Puppet.lookup(:bolt_executor) {}&.report_function_call(self.class.name)
     
-    Puppet.settings["#{setting}".to_sym]
+    result = Puppet.settings["#{setting}".to_sym]
+
+    # return the stdout from the command
+    response = 
+      if result.kind_of?(Array)
+        result.join
+      else
+        result
+      end
+    response
   end
 end

@@ -56,7 +56,7 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
     environment_string = validateparameter(environment, 'environment')
     section_string = validateparameter(section, 'section')
 
-    command_string = "puppet config print #{config_string} #{environment_string} #{section_string}".rstrip
+    command_string = "sudo puppet config print #{config_string} #{environment_string} #{section_string}".rstrip
 
     result = command(command_string)
 
@@ -65,6 +65,12 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
     end
 
     # return the stdout from the command
-    result[:stdout].strip
+    response = 
+      if result[:stdout].kind_of?(Array)
+        result[:stdout].join
+      else
+        result[:stdout].strip
+      end
+    response
   end
 end
