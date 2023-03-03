@@ -67,10 +67,12 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
     # return the stdout from the command
     response = 
       if result[:stdout].kind_of?(Array)
-        result[:stdout].join
+        # if the stdout is an array, join it with a comma
+        result[:stdout].join(',')
       else
-        result[:stdout].strip
+        result[:stdout]
       end
-    response
+    # remove any trailing whitespace
+    response.strip
   end
 end
