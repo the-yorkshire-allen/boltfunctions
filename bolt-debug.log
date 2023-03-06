@@ -1,6 +1,6 @@
-2023-03-02T19:15:11.479278 INFO   [main] [Bolt::Logger] Loaded project from '/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions'
-2023-03-02T19:15:11.479836 DEBUG  [main] [Bolt::Executor] Started with 100 max thread(s)
-2023-03-02T19:15:11.480247 DEBUG  [main] [Bolt::PAL] Loading modules from /opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.26.2/bolt-modules:/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/modulepathaxa:/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/.modules:/opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.26.2/modules
-2023-03-02T19:15:11.481028 DEBUG  [main] [Bolt::Inventory] Loaded inventory from /Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/inventory.yaml
-2023-03-02T19:15:11.951808 INFO   [event-publisher] [Bolt::Outputter::Logger] Starting: plan boltfunctions::printconfig
-2023-03-02T19:15:14.068468 INFO   [event-publisher] [Bolt::Outputter::Logger] Finished: plan boltfunctions::printconfig in 2.12 sec
+2023-03-06T10:00:24.550545 INFO   [main] [Bolt::Logger] Loaded project from '/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions'
+2023-03-06T10:00:24.551042 DEBUG  [main] [Bolt::Executor] Started with 100 max thread(s)
+2023-03-06T10:00:24.551451 DEBUG  [main] [Bolt::PAL] Loading modules from /opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.26.2/bolt-modules:/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/modulepathaxa:/Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/.modules:/opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.26.2/modules
+2023-03-06T10:00:24.552253 DEBUG  [main] [Bolt::Inventory] Loaded inventory from /Users/chris.allen/Library/CloudStorage/OneDrive-PERFORCESOFTWARE,INC/code/boltfunctions/inventory.yaml
+2023-03-06T10:00:24.984638 INFO   [event-publisher] [Bolt::Outputter::Logger] Starting: plan boltfunctions::crudini
+2023-03-06T10:00:25.090118 INFO   [event-publisher] [Bolt::Outputter::Logger] Finished: plan boltfunctions::crudini in 0.11 sec
