@@ -61,7 +61,7 @@ Puppet::Functions.create_function(:'boltfunctions::configprint') do
     result = command(command_string)
 
     if result[:exit_code] != 0
-      raise Bolt::Error.new("Could not print config: #{result[:stderr]}")
+      raise Bolt::Error.new("Could not print config: #{result[:stderr]}","bolt/invalid-plan")
     end
 
     # return the stdout from the command
