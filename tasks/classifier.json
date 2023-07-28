@@ -1,0 +1,456 @@
+[
+    {
+        "parent": "00000000-0000-4000-8000-000000000000",
+        "environment_trumps": false,
+        "name": "All Nodes",
+        "rule": [
+            "and",
+            [
+                "~",
+                "name",
+                ".*"
+            ]
+        ],
+        "variables": {},
+        "id": "00000000-0000-4000-8000-000000000000",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:41.150Z",
+        "serial_number": 1,
+        "classes": {},
+        "config_data": {}
+    },
+    {
+        "parent": "573480c4-1446-4f44-a9c4-3fa5f3355e0f",
+        "environment_trumps": false,
+        "name": "PE Console",
+        "rule": [
+            "or",
+            [
+                "=",
+                "name",
+                "ip-172-31-25-144.eu-west-1.compute.internal"
+            ]
+        ],
+        "variables": {},
+        "id": "122a0fe6-8033-4c1f-bb6d-f25f65ac8590",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:56.435Z",
+        "serial_number": 2,
+        "classes": {
+            "puppet_enterprise::license": {},
+            "puppet_enterprise::profile::console": {}
+        },
+        "config_data": {}
+    },
+    {
+        "description": "",
+        "parent": "00000000-0000-4000-8000-000000000000",
+        "environment_trumps": false,
+        "name": "Comply Scan group",
+        "rule": [
+            "or",
+            [
+                "=",
+                "name",
+                "ip-172-31-9-252.eu-west-1.compute.internal"
+            ],
+            [
+                "=",
+                "name",
+                "ip-172-31-25-144.eu-west-1.compute.internal"
+            ],
+            [
+                "=",
+                "name",
+                "ip-172-31-33-116.eu-west-1.compute.internal"
+            ],
+            [
+                "=",
+                "name",
+                "ip-172-31-11-23.eu-west-1.compute.internal"
+            ]
+        ],
+        "variables": {},
+        "id": "27d0670d-8920-4af1-9e5c-caa4f99604c4",
+        "environment": "production",
+        "last_edited": "2023-07-28T09:37:18.413Z",
+        "serial_number": 11,
+        "classes": {
+            "comply": {
+                "scanner_source": "https://ec2-34-243-210-172.eu-west-1.compute.amazonaws.com:30303/assessor"
+            }
+        },
+        "config_data": {}
+    },
+    {
+        "parent": "573480c4-1446-4f44-a9c4-3fa5f3355e0f",
+        "environment_trumps": false,
+        "name": "PE Agent",
+        "rule": [
+            "and",
+            [
+                "~",
+                [
+                    "fact",
+                    "aio_agent_version"
+                ],
+                ".+"
+            ]
+        ],
+        "variables": {},
+        "id": "37c081fd-59bc-4369-9540-ee60d53796c3",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:56.786Z",
+        "serial_number": 1,
+        "classes": {
+            "puppet_enterprise::profile::agent": {}
+        },
+        "config_data": {}
+    },
+    {
+        "parent": "37c081fd-59bc-4369-9540-ee60d53796c3",
+        "environment_trumps": false,
+        "name": "PE Infrastructure Agent",
+        "rule": [
+            "and",
+            [
+                "~",
+                [
+                    "fact",
+                    "pe_server_version"
+                ],
+                ".+"
+            ]
+        ],
+        "variables": {},
+        "id": "3b2ceff9-eab4-47b1-a234-6d9a8910e7f7",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:56.856Z",
+        "serial_number": 1,
+        "classes": {
+            "puppet_enterprise::profile::agent": {
+                "manage_puppet_conf": true,
+                "pcp_broker_list": [
+                    "ip-172-31-25-144.eu-west-1.compute.internal:8142"
+                ],
+                "primary_uris": [
+                    "ip-172-31-25-144.eu-west-1.compute.internal:8140"
+                ],
+                "server_list": [
+                    "ip-172-31-25-144.eu-west-1.compute.internal:8140"
+                ]
+            }
+        },
+        "config_data": {}
+    },
+    {
+        "description": "Environment group parent and default",
+        "parent": "00000000-0000-4000-8000-000000000000",
+        "environment_trumps": true,
+        "name": "All Environments",
+        "rule": [
+            "and",
+            [
+                "~",
+                "name",
+                ".*"
+            ]
+        ],
+        "variables": {},
+        "id": "3b567d62-8784-4c27-8349-1b770334b1c3",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:56.934Z",
+        "serial_number": 1,
+        "classes": {},
+        "config_data": {}
+    },
+    {
+        "parent": "00000000-0000-4000-8000-000000000000",
+        "environment_trumps": false,
+        "name": "PE Infrastructure",
+        "variables": {},
+        "id": "573480c4-1446-4f44-a9c4-3fa5f3355e0f",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:55.597Z",
+        "serial_number": 1,
+        "classes": {
+            "puppet_enterprise": {
+                "certificate_authority_host": "ip-172-31-25-144.eu-west-1.compute.internal",
+                "console_host": "ip-172-31-25-144.eu-west-1.compute.internal",
+                "database_host": "ip-172-31-25-144.eu-west-1.compute.internal",
+                "pcp_broker_host": "ip-172-31-25-144.eu-west-1.compute.internal",
+                "puppetdb_host": "ip-172-31-25-144.eu-west-1.compute.internal",
+                "puppet_master_host": "ip-172-31-25-144.eu-west-1.compute.internal"
+            }
+        },
+        "config_data": {}
+    },
+    {
+        "description": "Production nodes",
+        "parent": "3b567d62-8784-4c27-8349-1b770334b1c3",
+        "environment_trumps": true,
+        "name": "Production environment",
+        "rule": [
+            "and",
+            [
+                "=",
+                [
+                    "trusted",
+                    "extensions",
+                    "pp_environment"
+                ],
+                "production"
+            ]
+        ],
+        "variables": {},
+        "id": "5789d58c-b49b-4e37-ba93-922c927169ed",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:57.014Z",
+        "serial_number": 1,
+        "classes": {},
+        "config_data": {}
+    },
+    {
+        "parent": "573480c4-1446-4f44-a9c4-3fa5f3355e0f",
+        "environment_trumps": false,
+        "name": "PE Database",
+        "rule": [
+            "or",
+            [
+                "=",
+                "name",
+                "ip-172-31-25-144.eu-west-1.compute.internal"
+            ]
+        ],
+        "variables": {},
+        "id": "5a1355f2-cbfa-46ed-9d37-4e4897d85fe0",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:56.711Z",
+        "serial_number": 2,
+        "classes": {
+            "puppet_enterprise::profile::database": {}
+        },
+        "config_data": {}
+    },
+    {
+        "parent": "573480c4-1446-4f44-a9c4-3fa5f3355e0f",
+        "environment_trumps": false,
+        "name": "PE PuppetDB",
+        "rule": [
+            "or",
+            [
+                "=",
+                "name",
+                "ip-172-31-25-144.eu-west-1.compute.internal"
+            ]
+        ],
+        "variables": {},
+        "id": "82c05315-d787-4272-ade6-bfa3e68aae04",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:56.569Z",
+        "serial_number": 2,
+        "classes": {
+            "puppet_enterprise::profile::puppetdb": {}
+        },
+        "config_data": {}
+    },
+    {
+        "parent": "573480c4-1446-4f44-a9c4-3fa5f3355e0f",
+        "environment_trumps": false,
+        "name": "PE Certificate Authority",
+        "rule": [
+            "or",
+            [
+                "=",
+                "name",
+                "ip-172-31-25-144.eu-west-1.compute.internal"
+            ]
+        ],
+        "variables": {},
+        "id": "87fc311a-67b5-4c00-9f01-433aa2cc74f6",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:55.790Z",
+        "serial_number": 2,
+        "classes": {
+            "puppet_enterprise::profile::certificate_authority": {}
+        },
+        "config_data": {}
+    },
+    {
+        "parent": "bf26be49-3d93-44bf-9ed5-587d52b11eee",
+        "environment_trumps": false,
+        "name": "PE Compiler",
+        "rule": [
+            "and",
+            [
+                "=",
+                [
+                    "trusted",
+                    "extensions",
+                    "pp_auth_role"
+                ],
+                "pe_compiler"
+            ]
+        ],
+        "variables": {},
+        "id": "99916975-3dda-4fdb-9f21-58ead1a03759",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:56.106Z",
+        "serial_number": 1,
+        "classes": {
+            "puppet_enterprise::profile::master": {
+                "puppetdb_host": [
+                    "${trusted['certname']}"
+                ],
+                "puppetdb_port": [
+                    8081
+                ]
+            },
+            "puppet_enterprise::profile::puppetdb": {}
+        },
+        "config_data": {}
+    },
+    {
+        "description": "Apply the pe_patch class to specific nodes in your infrastructure to enable patch management.",
+        "parent": "00000000-0000-4000-8000-000000000000",
+        "environment_trumps": false,
+        "name": "PE Patch Management",
+        "variables": {},
+        "id": "aae9e4cd-fed5-4f07-8149-98a699a3b692",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:41.177Z",
+        "serial_number": 1,
+        "classes": {
+            "pe_patch": {}
+        },
+        "config_data": {}
+    },
+    {
+        "parent": "573480c4-1446-4f44-a9c4-3fa5f3355e0f",
+        "environment_trumps": false,
+        "name": "PE Master",
+        "rule": [
+            "or",
+            [
+                "and",
+                [
+                    "=",
+                    [
+                        "trusted",
+                        "extensions",
+                        "pp_auth_role"
+                    ],
+                    "pe_compiler"
+                ]
+            ],
+            [
+                "=",
+                "name",
+                "ip-172-31-25-144.eu-west-1.compute.internal"
+            ]
+        ],
+        "variables": {},
+        "id": "bf26be49-3d93-44bf-9ed5-587d52b11eee",
+        "environment": "production",
+        "last_edited": "2023-07-14T12:57:07.443Z",
+        "serial_number": 4,
+        "classes": {
+            "pe_repo": {},
+            "pe_repo::platform::debian_11_amd64": {},
+            "pe_repo::platform::el_7_x86_64": {},
+            "pe_repo::platform::el_8_x86_64": {},
+            "pe_repo::platform::ubuntu_2004_amd64": {},
+            "pe_repo::platform::windowsfips_x86_64": {},
+            "pe_repo::platform::windows_x86_64": {},
+            "puppet_enterprise::profile::master": {
+                "code_manager_auto_configure": true,
+                "r10k_private_key": "/etc/puppetlabs/puppetserver/ssh/id-control_repo.rsa",
+                "r10k_remote": "git@github.com:the-yorkshire-allen/control-repo-base.git",
+                "replication_mode": "none"
+            }
+        },
+        "config_data": {}
+    },
+    {
+        "parent": "573480c4-1446-4f44-a9c4-3fa5f3355e0f",
+        "environment_trumps": false,
+        "name": "PE Orchestrator",
+        "rule": [
+            "or",
+            [
+                "=",
+                "name",
+                "ip-172-31-25-144.eu-west-1.compute.internal"
+            ]
+        ],
+        "variables": {},
+        "id": "cccc3934-3a24-41c4-81ef-169706d75f6b",
+        "environment": "production",
+        "last_edited": "2023-07-14T08:39:56.259Z",
+        "serial_number": 2,
+        "classes": {
+            "puppet_enterprise::profile::orchestrator": {}
+        },
+        "config_data": {}
+    },
+    {
+        "description": "Allow development nodes to request a different puppet environment for a one-time run. May request and use any Puppet environment except for 'production'.",
+        "parent": "f2cc3ed0-0d6e-48e5-82f0-2c9d84682fb0",
+        "environment_trumps": true,
+        "name": "Development one-time run exception",
+        "rule": [
+            "and",
+            [
+                "~",
+                [
+                    "fact",
+                    "agent_specified_environment"
+                ],
+                ".+"
+            ],
+            [
+                "not",
+                [
+                    "=",
+                    [
+                        "fact",
+                        "agent_specified_environment"
+                    ],
+                    "production"
+                ]
+            ]
+        ],
+        "variables": {},
+        "id": "f09192a5-2a36-42ff-b733-059e439105ed",
+        "environment": "agent-specified",
+        "last_edited": "2023-07-14T08:39:57.167Z",
+        "serial_number": 1,
+        "classes": {},
+        "config_data": {}
+    },
+    {
+        "description": "Development nodes",
+        "parent": "3b567d62-8784-4c27-8349-1b770334b1c3",
+        "environment_trumps": true,
+        "name": "Development environment",
+        "rule": [
+            "and",
+            [
+                "=",
+                [
+                    "trusted",
+                    "extensions",
+                    "pp_environment"
+                ],
+                "development"
+            ]
+        ],
+        "variables": {},
+        "id": "f2cc3ed0-0d6e-48e5-82f0-2c9d84682fb0",
+        "environment": "development",
+        "last_edited": "2023-07-14T08:39:57.088Z",
+        "serial_number": 1,
+        "classes": {},
+        "config_data": {}
+    }
+]
