@@ -44,8 +44,8 @@ end
 
 def get_token(token_path)
   if token_path.nil? || token_path.empty?
-    out, st, token = Open3.capture3('/opt/puppetlabs/bin/puppet-access', 'show')
-    if st.exitstatus != 0
+    token, err, s = Open3.capture3('/opt/puppetlabs/bin/puppet-access', 'show')
+    if s.exitstatus != 0
       raise Puppet::Error.new "Could not get token from puppet-access"
     end
     token = token.strip
