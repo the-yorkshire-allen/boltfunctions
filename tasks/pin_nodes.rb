@@ -157,7 +157,7 @@ params = {nodes: nodes.join(",")}
 
 puts params
 
-response = http_conn.get(pin_uri, headers, params, ssl_verify)
+response = http_conn.post(pin_uri, headers, params, ssl_verify)
 validate_repsonse(response)
 
 
