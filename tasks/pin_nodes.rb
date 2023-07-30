@@ -25,10 +25,9 @@ class HttpConnection
 
   def post(url, headers = nil, params = nil, verify = true)
     request = Net::HTTP::Post.new(url)
-    request.body = URI.encode_www_form(params) if params
+    request.body = params.to_json if params
 
     request = add_headers(request, headers) if headers
-    request.content_type = 'application/json'
 
     puts request.body
     puts request.to_hash
@@ -110,7 +109,7 @@ def get_node_names(response)
   nodes = []
 
   data.each do |item|
-      nodes.append(item['certname'])
+      nodes.append('"' + item['certname'] + '"')
   end
   
   if nodes.length == 0
@@ -156,13 +155,13 @@ groupid = get_group_id(response, group_name)
 
 puts groupid
 
-pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?nodes=ip-172-31-25-144.eu-west-1.compute.internal%2Cip-172-31-33-116.eu-west-1.compute.internal%2Cip-172-31-11-23.eu-west-1.compute.internal%2Cip-172-31-9-252.eu-west-1.compute.internal"
+pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?"
 puts pin_uri
-params = {"nodes" => nodes.join(",")}
+params = {"nodes" => '[' + nodes.join(",") + ']'}
 
 puts params
 
-response = http_conn.post(pin_uri, headers, nil, ssl_verify)
+response = http_conn.post(pin_uri, headers, params, ssl_verify)
 validate_repsonse(response)
 
 
