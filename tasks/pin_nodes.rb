@@ -25,9 +25,12 @@ class HttpConnection
 
   def post(url, headers = nil, params = nil, verify = true)
     request = Net::HTTP::Post.new(url)
+    request.set_debug_output($stdout)    
     request.body = URI.encode_www_form(params) if params
 
     request = add_headers(request, headers) if headers
+
+    puts request.body
 
     http_request(request, verify)
   end
