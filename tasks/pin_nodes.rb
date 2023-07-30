@@ -8,7 +8,7 @@ require 'open3'
 
 params = JSON.parse(STDIN.read)
 token_path = params['token_path']
-nodes = params['nodes']
+nodes_search = params['nodes']
 group_name = params['group_name']
 ssl_verify = params['ssl_verify']
 
@@ -135,7 +135,7 @@ token = get_token(nil)
 
 http_conn = HttpConnection.new
 
-params = {query: 'nodes[certname] { certname ~ "' + nodes + '" }'}
+params = {query: 'nodes[certname] { certname ~ "' + nodes_search + '" }'}
 headers = {"X-Authentication" => "#{token}"}
 query_uri = "http://localhost:8080/pdb/query/v4"
 response = http_conn.get(query_uri, headers, params, ssl_verify)
@@ -157,7 +157,7 @@ params = {nodes: nodes.join(",")}
 
 puts params
 
-repsonse = http_conn.get(pin_uri, headers, params, ssl_verify)
+response = http_conn.get(pin_uri, headers, params, ssl_verify)
 validate_repsonse(response)
 
 
