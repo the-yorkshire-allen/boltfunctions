@@ -1,0 +1,27 @@
+{
+    "puppet_task_version": 1,
+    "supports_noop": false,
+    "description": "Archive orchestrator requests to disk",
+    "parameters": {
+      "token_path": {
+        "type": "String[1]",
+        "description": "Location of the access token to call the API.  This file must be readable by the pe-orchestration-services user.",
+        "default": "/tmp/access-token"
+      },
+      "archive_directory": {
+        "type": "String[1]",
+        "description": "Directory in which to write the archives.  Terminate with closing slash and must be writable by pe-orchestration-services user.",
+        "default": "/tmp/archive/"
+      },
+      "plan_jobs_api": {
+        "type": "String[1]",
+        "description": "The api endpoint to get a list of executed plans",
+        "default": "https://localhost:8143/orchestrator/v1/plan_jobs"
+      },
+      "jobs_api": {
+        "type": "String[1]",
+        "description": "The api endpoint to get a list of executed jobs",
+        "default": "https://localhost:8143/orchestrator/v1/jobs"
+      }
+    }
+  }
