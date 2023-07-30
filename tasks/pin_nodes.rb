@@ -10,6 +10,7 @@ params = JSON.parse(STDIN.read)
 token_path = params['token_path']
 nodes = params['nodes']
 group_name = params['group_name']
+ssl_verify = params['ssl_verify']
 
 class HttpConnection
   def get(url, headers = nil, params = nil, verify = true)
@@ -97,6 +98,28 @@ def get_group_id(response, group_name)
   ids[0]
 end
 
+def get_node_names(response)
+
+  data = JSON.parse(response.read_body)
+
+  nodes = []
+
+  data.each do |item|
+      nodes.append(item['certname'])
+  end
+  
+  if nodes.length == 0
+      puts "No nodes found to pin"
+      exit 1
+  end
+
+  nodes
+end
+
+def get_nodes_data(nodes)
+  nodes_data = '{ "nodes": [#{nodes}]}'
+  nodes_data
+end
 
 token = get_token(nil)
 
@@ -104,12 +127,22 @@ http_conn = HttpConnection.new
 
 params = {query: 'nodes[certname] { certname ~ "' + nodes + '" }'}
 headers = {"X-Authentication" => "#{token}"}
-response = http_conn.get('http://localhost:8080/pdb/query/v4', headers, params, false)
+query_uri = "http://localhost:8080/pdb/query/v4"
+response = http_conn.get(query_uri, headers, params, ssl_verify)
+nodes = get_node_names(response)
+
+puts nodes
+
+groups_uri = "https://localhost:4433/classifier-api/v1/groups"
+response = http_conn.get(groups_uri, headers, nil, ssl_verify)
+groupid = get_group_id(response, group_name)
+
+puts groupid
+
+pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
+params = get_nodes_data(nodes)
+repsonse = http_conn.get(pin_uri, headers, params, ssl_verify)
 
 puts params
 puts response.body
 
-groups_uri = "https://localhost:4433/classifier-api/v1/groups"
-response = http_conn.get(groups_uri, headers, nil, false)
-
-puts get_group_id(response, group_name)
