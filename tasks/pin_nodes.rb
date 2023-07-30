@@ -124,10 +124,13 @@ def validate_repsonse(response)
       #  All good nothing to do
     when Net::HTTPUnauthorized
       puts "#{response.message}: username and password set and correct?"
+      exit 1
     when Net::HTTPServerError
       puts "#{response.message}: try again later?"
+      exit 1
     else
       puts response.message
+      exit 1
   end
 end
 
