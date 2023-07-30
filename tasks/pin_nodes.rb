@@ -118,14 +118,14 @@ end
 
 def validate_repsonse(response)
   case response
-  when Net::HTTPSuccess
-    JSON.parse response.body
-  when Net::HTTPUnauthorized
-    {'error' => "#{response.message}: username and password set and correct?"}
-  when Net::HTTPServerError
-    {'error' => "#{response.message}: try again later?"}
-  else
-    {'error' => response.message}
+    when Net::HTTPSuccess
+      puts JSON.parse response.body
+    when Net::HTTPUnauthorized
+      puts {'error' => "#{response.message}: username and password set and correct?"}
+    when Net::HTTPServerError
+      puts {'error' => "#{response.message}: try again later?"}
+    else
+      puts {'error' => response.message}
   end
 end
 
