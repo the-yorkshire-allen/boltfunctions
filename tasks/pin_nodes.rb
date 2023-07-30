@@ -28,6 +28,7 @@ class HttpConnection
     request.body = URI.encode_www_form(params) if params
 
     request = add_headers(request, headers) if headers
+    request.content_type = 'application/json'
 
     puts request.body
     puts request.to_hash
