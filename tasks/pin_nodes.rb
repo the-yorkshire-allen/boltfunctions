@@ -108,7 +108,7 @@ def get_node_names(response)
   nodes = []
 
   data.each do |item|
-      nodes.append('"' + item['certname'] + '"')
+      nodes.append(item['certname'])
   end
   
   if nodes.length == 0
