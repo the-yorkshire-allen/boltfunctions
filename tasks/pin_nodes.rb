@@ -102,7 +102,7 @@ token = get_token(nil)
 
 http_conn = HttpConnection.new
 
-params = {query: 'nodes[certname] { certname ~ "#{group_name}" }'}
+params = {query: 'nodes[certname] { certname ~ "' + nodes + '" }'}
 headers = {"X-Authentication" => "#{token}"}
 response = http_conn.get('http://localhost:8080/pdb/query/v4', headers, params, false)
 
