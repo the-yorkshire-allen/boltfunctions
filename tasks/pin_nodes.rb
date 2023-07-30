@@ -136,7 +136,7 @@ token = get_token(nil)
 http_conn = HttpConnection.new
 
 params = {query: 'nodes[certname] { certname ~ "' + nodes_search + '" }'}
-headers = {"X-Authentication" => "#{token}"}
+headers = {"X-Authentication" => "#{token}", "Content-Type" => "application/json"}
 query_uri = "http://localhost:8080/pdb/query/v4"
 response = http_conn.get(query_uri, headers, params, ssl_verify)
 validate_repsonse(response)
