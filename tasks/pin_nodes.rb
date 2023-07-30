@@ -30,6 +30,7 @@ class HttpConnection
     request = add_headers(request, headers) if headers
 
     puts request.body
+    puts request.to_hash
 
     http_request(request, verify)
   end
