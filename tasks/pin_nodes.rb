@@ -119,7 +119,9 @@ end
 def validate_repsonse(response)
   case response
     when Net::HTTPSuccess
-      puts JSON.parse response.body
+      #puts JSON.parse response.body
+      puts "Success"
+      puts response.message
     when Net::HTTPUnauthorized
       puts "#{response.message}: username and password set and correct?"
     when Net::HTTPServerError
