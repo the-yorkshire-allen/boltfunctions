@@ -116,11 +116,6 @@ def get_node_names(response)
   nodes
 end
 
-def get_nodes_data(nodes)
-  nodes_data = '{ "nodes": [' + nodes.join(",") + ']}'
-  nodes_data
-end
-
 token = get_token(nil)
 
 http_conn = HttpConnection.new
@@ -140,7 +135,7 @@ groupid = get_group_id(response, group_name)
 puts groupid
 
 pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
-params = get_nodes_data(nodes)
+params = {nodes: '[' + nodes.join(",") + ']'}
 
 puts params
 
