@@ -117,7 +117,7 @@ def get_node_names(response)
 end
 
 def get_nodes_data(nodes)
-  nodes_data = '{ "nodes": [#{nodes}]}'
+  nodes_data = '{ "nodes": [' + nodes.join(",") + ']}'
   nodes_data
 end
 
@@ -141,8 +141,10 @@ puts groupid
 
 pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
 params = get_nodes_data(nodes)
-repsonse = http_conn.get(pin_uri, headers, params, ssl_verify)
 
 puts params
+
+repsonse = http_conn.get(pin_uri, headers, params, ssl_verify)
+
 puts response.body
 
