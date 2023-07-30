@@ -154,6 +154,8 @@ groupid, groupname = get_group_id(response, group_name)
 
 #puts groupid
 
+# Need to mode node parameter in request body.  Failing due to bad request.
+
 node_config = 'nodes=' +  nodes.join(",")
 pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?" +node_config
 #puts pin_uri
