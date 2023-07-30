@@ -116,6 +116,19 @@ def get_node_names(response)
   nodes
 end
 
+def validate_repsonse(repsonse)
+  case response
+  when Net::HTTPSuccess
+    JSON.parse response.body
+  when Net::HTTPUnauthorized
+    {'error' => "#{response.message}: username and password set and correct?"}
+  when Net::HTTPServerError
+    {'error' => "#{response.message}: try again later?"}
+  else
+    {'error' => response.message}
+  end
+end
+
 token = get_token(nil)
 
 http_conn = HttpConnection.new
@@ -124,12 +137,14 @@ params = {query: 'nodes[certname] { certname ~ "' + nodes + '" }'}
 headers = {"X-Authentication" => "#{token}"}
 query_uri = "http://localhost:8080/pdb/query/v4"
 response = http_conn.get(query_uri, headers, params, ssl_verify)
+validate_repsonse(response)
 nodes = get_node_names(response)
 
 puts nodes
 
 groups_uri = "https://localhost:4433/classifier-api/v1/groups"
 response = http_conn.get(groups_uri, headers, nil, ssl_verify)
+validate_repsonse(response)
 groupid = get_group_id(response, group_name)
 
 puts groupid
@@ -140,6 +155,8 @@ params = {nodes: '[' + nodes.join(",") + ']'}
 puts params
 
 repsonse = http_conn.get(pin_uri, headers, params, ssl_verify)
+validate_repsonse(response)
 
-puts response.body
+
+
 
