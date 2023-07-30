@@ -95,7 +95,7 @@ def get_group_id(response, group_name)
       exit 1
   end
   
-  return ids[0], name[0]
+  return ids[0], nodes[0]
 end
 
 def get_node_names(response)
