@@ -29,9 +29,6 @@ class HttpConnection
 
     request = add_headers(request, headers) if headers
 
-    puts request.body
-    puts request.to_hash
-
     http_request(request, verify)
   end
 
@@ -51,8 +48,7 @@ class HttpConnection
     end
 
     uri = URI.parse(request.path)
-    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", verify_mode: "#{verify_mode}".to_i) { |http|
-      http.set_debug_output($stdout)    
+    Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https", verify_mode: "#{verify_mode}".to_i) { |http| 
       http.request(request)
     }
   end
