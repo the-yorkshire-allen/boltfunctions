@@ -156,13 +156,13 @@ groupid = get_group_id(response, group_name)
 
 puts groupid
 
-pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
+pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?nodes=ip-172-31-25-144.eu-west-1.compute.internal%2Cip-172-31-33-116.eu-west-1.compute.internal%2Cip-172-31-11-23.eu-west-1.compute.internal%2Cip-172-31-9-252.eu-west-1.compute.internal"
 puts pin_uri
 params = {"nodes" => nodes.join(",")}
 
 puts params
 
-response = http_conn.post(pin_uri, headers, params, ssl_verify)
+response = http_conn.post(pin_uri, headers, nil, ssl_verify)
 validate_repsonse(response)
 
 
