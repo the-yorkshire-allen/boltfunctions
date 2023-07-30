@@ -105,7 +105,7 @@ def get_node_names(response)
   nodes = []
 
   data.each do |item|
-      nodes.append('"' + item['certname'] + '"')
+      nodes.append(item['certname'])
   end
   
   if nodes.length == 0
@@ -152,7 +152,7 @@ groupid = get_group_id(response, group_name)
 puts groupid
 
 pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
-params = {nodes: '[' + nodes.join(",") + ']'}
+params = {nodes: nodes.join(",")}
 
 puts params
 
