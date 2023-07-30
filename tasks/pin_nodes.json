@@ -1,0 +1,19 @@
+{
+    "puppet_task_version": 1,
+    "supports_noop": false,
+    "description": "Pin nodes to node group",
+    "parameters": {
+      "token_path": {
+        "type": "Optional[String[1]]",
+        "description": "Location of the access token to call the API.  This file must be readable by the pe-orchestration-services user."
+      },
+      "nodes": {
+        "type": "String[1]",
+        "description": "Pipe separated list of nodes to pin to the node group"
+      },
+      "group_name": {
+        "type": "String[1]",
+        "description": "Matching node group name to pin nodes to"
+      }
+    }
+  }
