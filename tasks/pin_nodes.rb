@@ -102,13 +102,14 @@ token = get_token(nil)
 
 http_conn = HttpConnection.new
 
-params = {query: 'nodes[certname] { certname ~ "com" }'}
+params = {query: 'nodes[certname] { certname ~ "#{group_name}" }'}
 headers = {"X-Authentication" => "#{token}"}
 response = http_conn.get('http://localhost:8080/pdb/query/v4', headers, params, false)
 
+puts params
 puts response.body
 
 groups_uri = "https://localhost:4433/classifier-api/v1/groups"
 response = http_conn.get(groups_uri, headers, nil, false)
 
-puts get_group_id(response)
+puts get_group_id(response, group_name)
