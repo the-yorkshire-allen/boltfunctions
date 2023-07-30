@@ -25,7 +25,7 @@ class HttpConnection
 
   def post(url, headers = nil, params = nil, verify = true)
     request = Net::HTTP::Post.new(url)
-    request.body = params.to_json if params
+    request.body = URI.encode_www_form(params) if params
 
     request = add_headers(request, headers) if headers
 
@@ -124,7 +124,6 @@ def validate_repsonse(response)
   case response
     when Net::HTTPSuccess
       #puts JSON.parse response.body
-      puts "Success"
       puts response.message
     when Net::HTTPUnauthorized
       puts "#{response.message}: username and password set and correct?"
@@ -146,22 +145,23 @@ response = http_conn.get(query_uri, headers, params, ssl_verify)
 validate_repsonse(response)
 nodes = get_node_names(response)
 
-puts nodes
+#puts nodes
 
 groups_uri = "https://localhost:4433/classifier-api/v1/groups"
 response = http_conn.get(groups_uri, headers, nil, ssl_verify)
 validate_repsonse(response)
 groupid = get_group_id(response, group_name)
 
-puts groupid
+#puts groupid
 
-pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
-puts pin_uri
-params = {nodes: nodes.join(",")}
+node_config = 'nodes=' +  nodes.join(",")
+pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?" +node_config
+#puts pin_uri
+params = {"nodes" => nodes.join(",")}
 
-puts params
+#puts params
 
-response = http_conn.post(pin_uri, headers, params, ssl_verify)
+response = http_conn.post(pin_uri, headers, nil, ssl_verify)
 validate_repsonse(response)
 
 
