@@ -121,11 +121,11 @@ def validate_repsonse(response)
     when Net::HTTPSuccess
       puts JSON.parse response.body
     when Net::HTTPUnauthorized
-      puts {'error' => "#{response.message}: username and password set and correct?"}
+      puts "#{response.message}: username and password set and correct?"
     when Net::HTTPServerError
-      puts {'error' => "#{response.message}: try again later?"}
+      puts "#{response.message}: try again later?"
     else
-      puts {'error' => response.message}
+      puts response.message
   end
 end
 
