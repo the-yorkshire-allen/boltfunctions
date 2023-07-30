@@ -9,11 +9,11 @@
       },
       "nodes": {
         "type": "String[1]",
-        "description": "Pipe separated list of nodes to pin to the node group"
+        "description": "Pipe separated list of nodes to pin to the node group. Can be partial match or substring of node name."
       },
       "group_name": {
         "type": "String[1]",
-        "description": "Matching node group name to pin nodes to"
+        "description": "Matching node group name to pin nodes to.  Can be partial match or substring of Node Group."
       },
       "ssl_verify": {
         "type": "Boolean",
