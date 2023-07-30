@@ -95,7 +95,7 @@ def get_group_id(response, group_name)
       exit 1
   end
   
-  ids[0]
+  return ids[0], name[0]
 end
 
 def get_node_names(response)
@@ -120,7 +120,8 @@ def validate_repsonse(response)
   case response
     when Net::HTTPSuccess
       #puts JSON.parse response.body
-      puts response.message
+      #puts response.message
+      #  All good nothing to do
     when Net::HTTPUnauthorized
       puts "#{response.message}: username and password set and correct?"
     when Net::HTTPServerError
@@ -146,7 +147,7 @@ nodes = get_node_names(response)
 groups_uri = "https://localhost:4433/classifier-api/v1/groups"
 response = http_conn.get(groups_uri, headers, nil, ssl_verify)
 validate_repsonse(response)
-groupid = get_group_id(response, group_name)
+groupid, groupname = get_group_id(response, group_name)
 
 #puts groupid
 
@@ -160,7 +161,7 @@ pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?" +nod
 response = http_conn.post(pin_uri, headers, nil, ssl_verify)
 validate_repsonse(response)
 
-puts "Added nodes " + nodes.join(",")
+puts "Added nodes " + nodes.join(",") + " to '" + groupname + "'"
 
 
 
