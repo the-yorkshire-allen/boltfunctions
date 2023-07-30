@@ -155,7 +155,7 @@ groupid = get_group_id(response, group_name)
 
 puts groupid
 
-pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?"
+pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
 puts pin_uri
 params = {nodes: '[' + nodes.join(",") + ']'}
 
