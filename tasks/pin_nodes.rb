@@ -10,7 +10,7 @@ params = JSON.parse(STDIN.read)
 token_path = params['token_path']
 nodes = params['nodes']
 group_name = params['group_name']
-ssl_verify = params['ssl_verify']
+ssl_verify = params['ssl_verify'].to_boolean
 
 class HttpConnection
   def get(url, headers = nil, params = nil, verify = true)
