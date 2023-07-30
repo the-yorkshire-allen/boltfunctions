@@ -134,7 +134,7 @@ def validate_repsonse(response)
   end
 end
 
-token = get_token(nil)
+token = get_token(token_path)
 
 http_conn = HttpConnection.new
 
