@@ -153,12 +153,14 @@ groupid = get_group_id(response, group_name)
 node_config = 'nodes=' +  nodes.join(",")
 pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?" +node_config
 #puts pin_uri
-params = {"nodes" => nodes.join(",")}
+#params = {"nodes" => nodes.join(",")}
 
 #puts params
 
 response = http_conn.post(pin_uri, headers, nil, ssl_verify)
 validate_repsonse(response)
+
+puts "Added nodes " + nodes.join(",")
 
 
 
