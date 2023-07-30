@@ -116,7 +116,7 @@ def get_node_names(response)
   nodes
 end
 
-def validate_repsonse(repsonse)
+def validate_repsonse(response)
   case response
   when Net::HTTPSuccess
     JSON.parse response.body
