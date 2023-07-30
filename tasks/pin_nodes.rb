@@ -156,7 +156,7 @@ puts groupid
 
 pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
 puts pin_uri
-params = {"nodes" => "[" + nodes.join(",") +"]"}
+params = {"nodes" => nodes.join(",")}
 
 puts params
 
