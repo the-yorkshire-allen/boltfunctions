@@ -166,9 +166,9 @@ node_config = 'nodes=' +  nodes.join(",")
 #pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?" +node_config
 pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
 #puts pin_uri
-params = {"nodes" =>'[' + nodes.join(",") + ']'}
+params = {"nodes" => '[' + nodes.join(",") + ']'}
 
-#puts params
+puts params
 
 response = http_conn.post(pin_uri, headers, params, ssl_verify)
 validate_repsonse(response)
