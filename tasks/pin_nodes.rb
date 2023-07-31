@@ -151,7 +151,7 @@ response = http_conn.get(query_uri, headers, params, ssl_verify)
 validate_response(response)
 nodes = get_node_names(response)
 
-puts "Found " + nodes.length.to_s + " nodes matching '" + nodes_search + "'")
+puts "Found " + nodes.length.to_s + " nodes matching '" + nodes_search + "'"
 
 groups_uri = "https://localhost:4433/classifier-api/v1/groups"
 response = http_conn.get(groups_uri, headers, nil, ssl_verify)
