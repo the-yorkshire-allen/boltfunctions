@@ -56,12 +56,12 @@ end
 
 def get_token(token_path)
   if token_path.nil? || token_path.empty?
-    token = get_token_from_access
+    token = get_token_from_access()
   else
     token = File.read(token_path)
     if token.nil? || token.empty?
       puts "Could not read token from #{token_path}, trying puppet-access"
-      token = get_token_from_access
+      token = get_token_from_access()
     end
   end
   token
