@@ -169,6 +169,7 @@ pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
 params = {"nodes" => '[' + nodes.join(",") + ']'}
 
 puts params
+puts params.to_json
 
 response = http_conn.post(pin_uri, headers, params, ssl_verify)
 validate_repsonse(response)
