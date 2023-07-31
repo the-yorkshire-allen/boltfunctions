@@ -5,19 +5,19 @@
     "parameters": {
       "token_path": {
         "type": "Optional[String[1]]",
-        "description": "Location of the access token to call the API.  This file must be readable by the pe-orchestration-services user."
+        "description": "Location of the access token to call the API.  This file must be readable by the pe-orchestration-services user e.g. '/home/my_user/.puppetlabs/token'"
       },
       "nodes": {
         "type": "String[1]",
-        "description": "Pipe separated list of nodes to pin to the node group. Can be partial match or substring of node name."
+        "description": "Pipe separated list of nodes to pin to the node group. Can be partial match or substring of node name e.g. '44545|2233|prod-443|database'"
       },
       "group_name": {
         "type": "String[1]",
-        "description": "Matching node group name to pin nodes to.  Can be partial match or substring of Node Group."
+        "description": "Matching node group name to pin nodes to.  Can be partial match or substring of Node Group e.g. 'Comply'"
       },
       "ssl_verify": {
         "type": "Boolean",
-        "description": "Test whether the connection to the API is verify certificate",
+        "description": "Test whether the connection to the API is a verified certificate",
         "default": true
       }      
     }
