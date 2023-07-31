@@ -25,7 +25,7 @@ class HttpConnection
 
   def post(url, headers = nil, params = nil, verify = true)
     request = Net::HTTP::Post.new(url)
-    request.body = params.to_json if params
+    request.body = params if params
 
     request = add_headers(request, headers) if headers
 
@@ -122,7 +122,7 @@ def get_node_names(response)
   nodes
 end
 
-def validate_repsonse(response)
+def validate_response(response)
   case response
     when Net::HTTPSuccess
       #puts JSON.parse response.body
@@ -148,14 +148,14 @@ params = {query: 'nodes[certname] { certname ~ "' + nodes_search + '" }'}
 headers = {"X-Authentication" => "#{token}", "Content-Type" => "application/json"}
 query_uri = "http://localhost:8080/pdb/query/v4"
 response = http_conn.get(query_uri, headers, params, ssl_verify)
-validate_repsonse(response)
+validate_response(response)
 nodes = get_node_names(response)
 
 #puts nodes
 
 groups_uri = "https://localhost:4433/classifier-api/v1/groups"
 response = http_conn.get(groups_uri, headers, nil, ssl_verify)
-validate_repsonse(response)
+validate_response(response)
 groupid, groupname = get_group_id(response, group_name)
 
 #puts groupid
@@ -171,7 +171,11 @@ params = {"nodes" => '[' + nodes.join(",") + ']'}
 puts params
 puts params.to_json
 
+params = '{ "nodes": [' + nodes.join(",") + '] }'
+
+puts params
+
 response = http_conn.post(pin_uri, headers, params, ssl_verify)
-validate_repsonse(response)
+validate_response(response)
 
 puts "Added nodes " + nodes.join(",") + " to '" + groupname + "'"
