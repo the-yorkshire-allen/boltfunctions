@@ -125,8 +125,6 @@ end
 def validate_response(response)
   case response
     when Net::HTTPSuccess
-      #puts JSON.parse response.body
-      #puts response.message
       #  All good nothing to do
     when Net::HTTPUnauthorized
       puts "#{response.message}: username and password set and correct?"
