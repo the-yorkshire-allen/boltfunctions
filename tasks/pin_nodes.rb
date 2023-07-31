@@ -151,29 +151,17 @@ response = http_conn.get(query_uri, headers, params, ssl_verify)
 validate_response(response)
 nodes = get_node_names(response)
 
-#puts nodes
+puts "Found " + nodes.length.to_s + " nodes matching '" + nodes_search + "'")
 
 groups_uri = "https://localhost:4433/classifier-api/v1/groups"
 response = http_conn.get(groups_uri, headers, nil, ssl_verify)
 validate_response(response)
 groupid, groupname = get_group_id(response, group_name)
 
-#puts groupid
+puts "Found group '" + groupname + "' with id " + groupid
 
-# Need to mode node parameter in request body.  Failing due to bad request.
-
-node_config = 'nodes=' +  nodes.join(",")
-#pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin?" +node_config
 pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
-#puts pin_uri
-params = {"nodes" => '[' + nodes.join(",") + ']'}
-
-puts params
-puts params.to_json
-
 params = '{ "nodes": [' + nodes.join(",") + '] }'
-
-puts params
 
 response = http_conn.post(pin_uri, headers, params, ssl_verify)
 validate_response(response)
