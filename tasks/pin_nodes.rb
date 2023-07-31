@@ -56,18 +56,24 @@ end
 
 def get_token(token_path)
   if token_path.nil? || token_path.empty?
-    token, err, s = Open3.capture3('/opt/puppetlabs/bin/puppet-access', 'show')
-    if s.exitstatus != 0
-      puts "Could not get token from puppet-access"
-    end
-    token = token.strip
+    token = get_token_from_access()
   else
     token = File.read(token_path)
     if token.nil? || token.empty?
-      puts "Could not read token from #{token_path}"
+      puts "Could not read token from #{token_path}, trying puppet-access"
+      token = get_token_from_access()
     end
   end
   token
+end
+
+def get_token_from_access
+  token, err, s = Open3.capture3('/opt/puppetlabs/bin/puppet-access', 'show')
+  if s.exitstatus != 0
+    puts "Could not get token from puppet-access"
+    exit 1
+  end
+  token.strip
 end
 
 def get_group_id(response, group_name)
@@ -85,12 +91,12 @@ def get_group_id(response, group_name)
   end
   
   if nodes.length == 0
-      puts "No nodes found for group #{group_name}"
+      puts "No matching Node Groups found for #{group_name}"
       exit 1
   end
   
   if nodes.length > 1
-      puts "More than one matching node group found for group #{group_name}"
+      puts "More than one matching Node Groups found for #{group_name}"
       puts nodes
       exit 1
   end
@@ -168,7 +174,3 @@ response = http_conn.post(pin_uri, headers, params, ssl_verify)
 validate_repsonse(response)
 
 puts "Added nodes " + nodes.join(",") + " to '" + groupname + "'"
-
-
-
-
