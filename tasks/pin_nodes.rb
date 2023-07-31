@@ -158,7 +158,7 @@ response = http_conn.get(groups_uri, headers, nil, ssl_verify)
 validate_response(response)
 groupid, groupname = get_group_id(response, group_name)
 
-puts "Found group '" + groupname + "' with id " + groupid
+puts "Found group '" + groupname + "' with id '" + groupid + "'"
 
 pin_uri = "https://localhost:4433/classifier-api/v1/groups/#{groupid}/pin"
 params = '{ "nodes": [' + nodes.join(",") + '] }'
