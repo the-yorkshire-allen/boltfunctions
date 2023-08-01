@@ -144,7 +144,7 @@ http_conn = HttpConnection.new
 
 params = {query: 'nodes[certname] { certname ~ "' + nodes_search + '" }'}
 headers = {"X-Authentication" => "#{token}", "Content-Type" => "application/json"}
-query_uri = "http://localhost:8080/pdb/query/v4"
+query_uri = "https://localhost:8081/pdb/query/v4"
 response = http_conn.get(query_uri, headers, params, ssl_verify)
 validate_response(response)
 nodes = get_node_names(response)
